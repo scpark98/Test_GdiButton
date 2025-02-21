@@ -196,6 +196,13 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_slider_shadow_blur.set_back_color(RGB(255, 255, 255));
 	m_slider_shadow_blur.SetRange(0, 100);
 
+	m_button_ok.draw_border(true, 1, 4);
+	m_button_ok.use_hover();
+	m_button_ok.set_header_image(IDB_CHECKED);
+	//m_button_ok.draw_shadow();
+
+	m_button_cancel.draw_border(true, 1, 4);
+
 	m_img.load(IDB_UNCHECK);
 	m_img.set_alpha(128);
 
@@ -258,6 +265,16 @@ void CTestGdiButtonDlg::OnPaint()
 			m_img_back[m_img_back_index]->draw(g, rc, m_img_back_mode);
 
 		m_img.draw(g, rc.right - 250, rc.bottom - 250);
+
+		/*
+		CRect r;
+		m_button_ok.GetWindowRect(r);
+		ScreenToClient(r);
+		r.InflateRect(8, 8);
+		CGdiplusBitmap img;
+		img.round_shadow_rect(r.Width(), r.Height(), 14.0f, 2.f, Gdiplus::Color(255, 192, 192, 192));
+		img.draw(g, r.left, r.top);
+		*/
 	}
 }
 
@@ -322,18 +339,17 @@ void CTestGdiButtonDlg::OnCbnSelchangeComboBackImage()
 void CTestGdiButtonDlg::OnBnClickedOk()
 {
 	//refresh_tray_icon();
-<<<<<<< HEAD
-	m_img_back[m_img_back_index]->blur(10.0f, 1);
-=======
-	m_img_back[m_img_back_index]->fast_blur(10.0f, 1);
->>>>>>> 18b683fa4d169cce904fa88d930860c9ab6413b0
-	Invalidate();
+	//m_img_back[m_img_back_index]->blur(10.0f, 1);
+	//Invalidate();
 }
 
 
 void CTestGdiButtonDlg::OnBnClickedCancel()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (AfxMessageBox(_T("exit?"), MB_OKCANCEL) == IDCANCEL)
+		return;
+
 	CDialogEx::OnCancel();
 }
 
@@ -350,6 +366,7 @@ void CTestGdiButtonDlg::OnDestroy()
 BOOL CTestGdiButtonDlg::OnEraseBkgnd(CDC* pDC)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
 	return FALSE;
 	return CDialogEx::OnEraseBkgnd(pDC);
 }
