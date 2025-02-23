@@ -198,13 +198,15 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 
 	m_button_ok.draw_border(true, 1, 4);
 	m_button_ok.use_hover();
-	m_button_ok.set_header_image(IDB_CHECKED);
+	m_button_ok.set_header_image(IDB_ARROW_LEFT);
 	//m_button_ok.draw_shadow();
 
 	m_button_cancel.draw_border(true, 1, 4);
 
 	m_img.load(IDB_UNCHECK);
 	m_img.set_alpha(128);
+	m_img.resize(200, 0);
+	m_img.resize(0, 356);
 
 	RestoreWindowPosition(&theApp, this);
 
@@ -264,7 +266,8 @@ void CTestGdiButtonDlg::OnPaint()
 		if (m_img_back_index > 0 && m_img_back_index < m_img_back.size())
 			m_img_back[m_img_back_index]->draw(g, rc, m_img_back_mode);
 
-		m_img.draw(g, rc.right - 250, rc.bottom - 250);
+		//우측 상단에 이미지를 표시는 예졔코드
+		m_img.draw(g, rc.right - m_img.width - 20, rc.top + 20);
 
 		/*
 		CRect r;
@@ -299,7 +302,7 @@ void CTestGdiButtonDlg::load_back_images()
 		CGdiplusBitmap* image = new CGdiplusBitmap();
 		if (image->load(img))
 		{
-			image->resize(640);
+			image->resize(640, 0);
 			//else if (image->width > 1920)
 			//	image->resize(0.5f, 0.5f);
 			m_combo_back_image.AddString(get_part(img, fn_name));
