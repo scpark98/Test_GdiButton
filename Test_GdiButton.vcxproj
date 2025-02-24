@@ -294,6 +294,10 @@
     <Image Include="res\images\arrow_right.png" />
     <Image Include="res\images\check.png" />
     <Image Include="res\images\checked.png" />
+    <Image Include="res\images\checked_blue.png" />
+    <Image Include="res\images\checked_green.png" />
+    <Image Include="res\images\enter_key.png" />
+    <Image Include="res\images\return.png" />
     <Image Include="res\images\round_button_down.png" />
     <Image Include="res\images\round_button_normal.png" />
     <Image Include="res\images\uncheck.png" />

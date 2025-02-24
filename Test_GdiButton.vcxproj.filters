@@ -146,5 +146,17 @@
     <Image Include="res\images\unchecked.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="res\images\checked_blue.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\images\checked_green.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\images\return.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\images\enter_key.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>

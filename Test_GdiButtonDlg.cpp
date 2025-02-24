@@ -196,12 +196,12 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_slider_shadow_blur.set_back_color(RGB(255, 255, 255));
 	m_slider_shadow_blur.SetRange(0, 100);
 
-	m_button_ok.draw_border(true, 1, 4);
+	m_button_ok.draw_border(true, 1, 14);
 	m_button_ok.use_hover();
-	m_button_ok.set_header_image(IDB_ARROW_LEFT);
+	m_button_ok.set_header_image(IDB_CHECKED_BLUE);
 	//m_button_ok.draw_shadow();
 
-	m_button_cancel.draw_border(true, 1, 4);
+	m_button_cancel.draw_border(true, 1, 14);
 
 	m_img.load(IDB_UNCHECK);
 	m_img.set_alpha(128);
