@@ -196,12 +196,14 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_slider_shadow_blur.set_back_color(RGB(255, 255, 255));
 	m_slider_shadow_blur.SetRange(0, 100);
 
+	//draw_border()를 호출할 때 round를 1 이상의 값을 주면 m_transparent = true가 되므로 약간의 깜빡임이 발생할 수 있다.
 	m_button_ok.draw_border(true, 1, 14);
 	m_button_ok.use_hover();
 	m_button_ok.set_header_image(IDB_CHECKED_BLUE);
 	//m_button_ok.draw_shadow();
 
-	m_button_cancel.draw_border(true, 1, 14);
+	m_button_cancel.set_back_color(Gdiplus::Color::Beige);
+	//m_button_cancel.draw_border(true, 1, 14);
 
 	m_img.load(IDB_UNCHECK);
 	m_img.set_alpha(128);
