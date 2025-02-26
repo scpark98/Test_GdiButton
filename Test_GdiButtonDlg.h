@@ -84,4 +84,5 @@ public:
 	CSCSliderCtrl m_slider_shadow_weight;
 	CSCSliderCtrl m_slider_shadow_blur;
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

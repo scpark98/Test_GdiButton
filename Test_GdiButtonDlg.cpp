@@ -104,6 +104,7 @@ BEGIN_MESSAGE_MAP(CTestGdiButtonDlg, CDialogEx)
 	ON_WM_WINDOWPOSCHANGED()
 	ON_WM_HSCROLL()
 	ON_REGISTERED_MESSAGE(Message_CSCSliderCtrl, &CTestGdiButtonDlg::on_message_CSCSliderCtrl)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -197,24 +198,28 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_slider_shadow_blur.SetRange(0, 100);
 
 	//draw_border()를 호출할 때 round를 1 이상의 값을 주면 m_transparent = true가 되므로 약간의 깜빡임이 발생할 수 있다.
-	m_button_ok.draw_border(true, 1, 14);
+	m_button_ok.draw_border(true, 1, 44);
 	m_button_ok.use_hover();
 	m_button_ok.set_header_image(IDB_CHECKED_BLUE);
+	m_button_ok.set_header_image_gap(8);
 	//m_button_ok.draw_shadow();
 
 	m_button_cancel.set_back_color(Gdiplus::Color::Beige);
 	//m_button_cancel.draw_border(true, 1, 14);
 
-	m_img.load(IDB_UNCHECK);
+	m_img.load(IDB_ARROW_LEFT);
+	m_img.save(_T("d:\\arrow_left.png"));
 	m_img.set_alpha(128);
-	m_img.resize(200, 0);
-	m_img.resize(0, 356);
+	//m_img.resize(200, 0);
+	//m_img.resize(0, 356);
+
+	CRect r = m_img.get_transparent_rect();
+
+	SetWindowTheme(GetDlgItem(IDC_EDIT1)->m_hWnd, _T(""), _T(""));
 
 	RestoreWindowPosition(&theApp, this);
 
-	//int dpi = GetDeviceCaps(GetDesktopWindow()->GetDC()->GetSafeHdc(), LOGPIXELSX);
 
-	//AfxMessageBox(str);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -467,4 +472,25 @@ LRESULT CTestGdiButtonDlg::on_message_CSCSliderCtrl(WPARAM wParam, LPARAM lParam
 		m_button_shadow.draw_shadow(true, -1.0f, (float)msg->pos / 10.0f);
 	}
 	return 0;
+}
+
+
+HBRUSH CTestGdiButtonDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  여기서 DC의 특성을 변경합니다.
+	switch (nCtlColor)
+	{
+		//STATIC은 투명하게 표시되는데
+		case CTLCOLOR_STATIC:
+		//EDIT은 투명하게 되지 않는다.
+		case CTLCOLOR_EDIT:
+			pDC->SetTextColor(RGB(255, 0, 0));
+			pDC->SetBkMode(TRANSPARENT);
+			hbr = (HBRUSH)GetStockObject(NULL_BRUSH);
+			break;
+	}
+
+	return hbr;
 }
