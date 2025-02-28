@@ -46,6 +46,9 @@
 #define IDC_SLIDER_SHADOW_WEIGHT        1024
 #define IDC_SLIDER_SHADOW_BLUR          1025
 #define IDC_EDIT1                       1026
+#define IDC_STATIC_WEIGHT_PARAM         1027
+#define IDC_STATIC_WEIGHT_PARAM2        1028
+#define IDC_STATIC_BLUR_PARAM2          1028
 
 // Next default values for new objects
 // 
@@ -53,7 +56,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        142
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1027
+#define _APS_NEXT_CONTROL_VALUE         1028
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

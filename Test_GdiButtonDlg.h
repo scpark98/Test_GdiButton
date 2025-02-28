@@ -26,6 +26,8 @@ public:
 
 	CGdiplusBitmap		m_img;
 
+	Gdiplus::Color		m_cr_back = Gdiplus::Color::White;
+
 	std::deque<CGdiplusBitmap*>	m_img_back;
 	int					m_img_back_index;
 	int					m_img_back_mode;		//origin? zoom? stretch?
@@ -85,4 +87,6 @@ public:
 	CSCSliderCtrl m_slider_shadow_blur;
 	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	CSCStatic m_static_weight_param;
+	CSCStatic m_static_blur_param;
 };

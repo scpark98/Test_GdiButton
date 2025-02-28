@@ -88,6 +88,8 @@ void CTestGdiButtonDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_SHADOW, m_button_shadow);
 	DDX_Control(pDX, IDC_SLIDER_SHADOW_WEIGHT, m_slider_shadow_weight);
 	DDX_Control(pDX, IDC_SLIDER_SHADOW_BLUR, m_slider_shadow_blur);
+	DDX_Control(pDX, IDC_STATIC_WEIGHT_PARAM, m_static_weight_param);
+	DDX_Control(pDX, IDC_STATIC_BLUR_PARAM2, m_static_blur_param);
 }
 
 BEGIN_MESSAGE_MAP(CTestGdiButtonDlg, CDialogEx)
@@ -160,9 +162,9 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 
 	for (i = 0; i < 3; i++)
 	{
-		m_check_align[i].set_transparent();
-		m_radio_default[i].set_transparent();
-		m_radio_image[i].set_transparent();
+		m_check_align[i].set_transparent(true, m_cr_back);
+		m_radio_default[i].set_transparent(true, m_cr_back);
+		m_radio_image[i].set_transparent(true, m_cr_back);
 	}
 
 	m_check_fit_to_control.add_images(_T("PNG"), IDB_UNCHECK, IDB_CHECK);
@@ -202,6 +204,7 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_ok.use_hover();
 	m_button_ok.set_header_image(IDB_CHECKED_BLUE);
 	m_button_ok.set_header_image_gap(8);
+	m_button_ok.set_transparent(true, m_cr_back);
 	//m_button_ok.draw_shadow();
 
 	m_button_cancel.set_back_color(Gdiplus::Color::Beige);
@@ -341,6 +344,8 @@ void CTestGdiButtonDlg::OnCbnSelchangeComboBackImage()
 		return;
 
 	m_img_back_index = index;
+	m_check_stretch.EnableWindow(m_img_back_index != 0);
+
 	AfxGetApp()->WriteProfileInt(_T("setting"), _T("back image index"), m_img_back_index);
 	Invalidate();
 }
@@ -464,11 +469,13 @@ LRESULT CTestGdiButtonDlg::on_message_CSCSliderCtrl(WPARAM wParam, LPARAM lParam
 	if (msg->pThis == &m_slider_shadow_weight)
 	{
 		TRACE(_T("shadow_weight = %f\n"), (float)msg->pos / 10.0f);
+		m_static_weight_param.set_textf(-1, _T("%.1f"), (float)msg->pos / 10.0f);
 		m_button_shadow.draw_shadow(true, (float)msg->pos / 10.0f, -1.0f);
 	}
 	else if (msg->pThis == &m_slider_shadow_blur)
 	{
 		TRACE(_T("shadow_blur = %f\n"), (float)msg->pos / 10.0f);
+		m_static_blur_param.set_textf(-1, _T("%.1f"), (float)msg->pos / 10.0f);
 		m_button_shadow.draw_shadow(true, -1.0f, (float)msg->pos / 10.0f);
 	}
 	return 0;
