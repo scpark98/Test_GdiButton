@@ -172,6 +172,7 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 
 	m_check_fit_to_image.add_images(_T("PNG"), IDB_UNCHECK, IDB_CHECK);
 	m_check_fit_to_image.fit_to_image(true);
+	m_check_fit_to_image.use_hover();
 	m_tooltip.AddTool(&m_check_fit_to_image, _T("이미지 크기대로 버튼 크기를 조정"));
 
 	m_button_shadow_left.add_image(IDB_ARROW_LEFT);
@@ -191,6 +192,7 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	//m_button_shadow.draw_border(true, -1, 10);
 	m_button_shadow.draw_shadow(true, 0.5f, 2.0f);
 
+
 	m_slider_shadow_weight.set_style(CSCSliderCtrl::style_thumb_round);
 	m_slider_shadow_weight.set_back_color(RGB(255, 255, 255));
 	m_slider_shadow_weight.SetRange(0, 100);
@@ -199,15 +201,21 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_slider_shadow_blur.set_back_color(RGB(255, 255, 255));
 	m_slider_shadow_blur.SetRange(0, 100);
 
+
 	//draw_border()를 호출할 때 round를 1 이상의 값을 주면 m_transparent = true가 되므로 약간의 깜빡임이 발생할 수 있다.
-	m_button_ok.draw_border(true, 1, 44);
+	//m_button_ok.draw_border(true, 1, 44);
 	m_button_ok.use_hover();
 	m_button_ok.set_header_image(IDB_CHECKED_BLUE);
 	m_button_ok.set_header_image_gap(8);
-	m_button_ok.set_transparent(true, m_cr_back);
+	m_button_ok.set_back_color(Gdiplus::Color::LightBlue);
+	m_button_ok.set_round(40);
+	//m_button_ok.set_transparent(true, m_cr_back);
 	//m_button_ok.draw_shadow();
 
+
+	m_button_cancel.set_round(40);
 	m_button_cancel.set_back_color(Gdiplus::Color::Beige);
+	//m_button_cancel.set_transparent(true, m_cr_back);
 	//m_button_cancel.draw_border(true, 1, 14);
 
 	m_img.load(IDB_ARROW_LEFT);
