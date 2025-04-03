@@ -107,6 +107,7 @@ BEGIN_MESSAGE_MAP(CTestGdiButtonDlg, CDialogEx)
 	ON_WM_HSCROLL()
 	ON_REGISTERED_MESSAGE(Message_CSCSliderCtrl, &CTestGdiButtonDlg::on_message_CSCSliderCtrl)
 	ON_WM_CTLCOLOR()
+	ON_BN_CLICKED(IDC_CHECK_FIT_TO_IMAGE, &CTestGdiButtonDlg::OnBnClickedCheckFitToImage)
 END_MESSAGE_MAP()
 
 
@@ -512,4 +513,9 @@ HBRUSH CTestGdiButtonDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	}
 
 	return hbr;
+}
+
+void CTestGdiButtonDlg::OnBnClickedCheckFitToImage()
+{
+	m_check_fit_to_control.EnableWindow(m_check_fit_to_image.GetCheck() == BST_CHECKED ? FALSE : TRUE);
 }

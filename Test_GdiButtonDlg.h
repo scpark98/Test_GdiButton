@@ -89,4 +89,5 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	CSCStatic m_static_weight_param;
 	CSCStatic m_static_blur_param;
+	afx_msg void OnBnClickedCheckFitToImage();
 };
