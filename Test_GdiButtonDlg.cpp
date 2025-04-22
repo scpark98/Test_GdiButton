@@ -168,10 +168,12 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 		m_radio_image[i].set_transparent(true, m_cr_back);
 	}
 
-	m_check_fit_to_control.add_images(_T("PNG"), IDB_UNCHECK, IDB_CHECK);
+	m_check_fit_to_control.add_images(_T("PNG"), IDB_BTN_SIZEAUTO_NORMAL, IDB_BTN_SIZEAUTO_CLICK);
+	m_check_fit_to_control.set_back_color(Gdiplus::Color::White);
 	m_tooltip.AddTool(&m_check_fit_to_control, _T("버튼 크기대로 이미지 크기를 조정"));
 
-	m_check_fit_to_image.add_images(_T("PNG"), IDB_UNCHECK, IDB_CHECK);
+	m_check_fit_to_image.add_images(_T("PNG"), IDB_BTN_SIZEAUTO_NORMAL, IDB_BTN_SIZEAUTO_CLICK);
+	m_check_fit_to_image.set_back_color(Gdiplus::Color::White);
 	m_check_fit_to_image.fit_to_image(true);
 	m_check_fit_to_image.use_hover();
 	m_tooltip.AddTool(&m_check_fit_to_image, _T("이미지 크기대로 버튼 크기를 조정"));

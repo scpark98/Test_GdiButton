@@ -19,6 +19,9 @@
 #define IDB_CHECKED_GREEN               139
 #define IDB_PNG1                        141
 #define IDB_ENTER_KEY                   141
+#define IDB_BTN_SIZEAUTO_CLICK          142
+#define IDB_PNG3                        143
+#define IDB_BTN_SIZEAUTO_NORMAL         143
 #define IDC_COMBO1                      1001
 #define IDC_COMBO_BACK_IMAGE            1001
 #define IDC_STATIC_BACK_IMAGE           1002
@@ -54,7 +57,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        142
+#define _APS_NEXT_RESOURCE_VALUE        144
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1028
 #define _APS_NEXT_SYMED_VALUE           101

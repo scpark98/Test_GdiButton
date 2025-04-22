@@ -297,6 +297,8 @@
     <Image Include="res\images\checked_blue.png" />
     <Image Include="res\images\checked_green.png" />
     <Image Include="res\images\enter_key.png" />
+    <Image Include="res\images\IDB_BTN_SIZEAUTO_CLICK.png" />
+    <Image Include="res\images\IDB_BTN_SIZEAUTO_NORMAL.png" />
     <Image Include="res\images\return.png" />
     <Image Include="res\images\round_button_down.png" />
     <Image Include="res\images\round_button_normal.png" />
