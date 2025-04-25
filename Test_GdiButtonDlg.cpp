@@ -168,32 +168,39 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 		m_radio_image[i].set_transparent(true, m_cr_back);
 	}
 
-	m_check_fit_to_control.add_images(_T("PNG"), IDB_BTN_SIZEAUTO_NORMAL, IDB_BTN_SIZEAUTO_CLICK);
-	m_check_fit_to_control.set_back_color(Gdiplus::Color::White);
+	//m_check_fit_to_control.add_images(_T("PNG"), IDB_BTN_SIZEAUTO_NORMAL, IDB_BTN_SIZEAUTO_CLICK);
+	m_check_fit_to_control.add_images(_T("PNG"), IDB_UNCHECK, IDB_CHECK);
+	m_check_fit_to_control.fit_to_image(false);
+	m_check_fit_to_control.set_back_color(Gdiplus::Color::White, false);
 	m_tooltip.AddTool(&m_check_fit_to_control, _T("버튼 크기대로 이미지 크기를 조정"));
 
-	m_check_fit_to_image.add_images(_T("PNG"), IDB_BTN_SIZEAUTO_NORMAL, IDB_BTN_SIZEAUTO_CLICK);
-	m_check_fit_to_image.set_back_color(Gdiplus::Color::White);
+	m_check_fit_to_image.add_images(_T("PNG"), IDB_UNCHECK, IDB_CHECK);
+	m_check_fit_to_image.set_back_color(Gdiplus::Color::White, false);
 	m_check_fit_to_image.fit_to_image(true);
 	m_check_fit_to_image.use_hover();
 	m_tooltip.AddTool(&m_check_fit_to_image, _T("이미지 크기대로 버튼 크기를 조정"));
 
 	m_button_shadow_left.add_image(IDB_ARROW_LEFT);
-	//m_button_shadow_left.set_back_color(Gdiplus::Color::White);
-	//m_button_shadow_left.fit_to_image(false);
+	m_button_shadow_left.set_back_color(Gdiplus::Color::White, false);
+	m_button_shadow_left.fit_to_image(false);
 	//m_button_shadow_left.draw_border(true, -1, 10);
-	m_button_shadow_left.draw_shadow();//true , 1.0f, 2.0f);
+	m_button_shadow_left.draw_shadow(true , 1.0f, 1.6f);
+	m_button_shadow_left.set_down_offset(1, 1);
 
 	m_button_shadow_right.add_image(IDB_ARROW_RIGHT);
-	//m_button_shadow_right.fit_to_image(false);
-	//m_button_shadow_right.draw_hover_rect(true, -1, 10);
-	m_button_shadow_right.draw_shadow();
+	m_button_shadow_right.set_back_color(Gdiplus::Color::White, false);
+	m_button_shadow_right.fit_to_image(false);
+	//m_button_shadow_right.draw_hover_rect(true, -1, 10); 
+	m_button_shadow_right.draw_shadow(true, 1.0f, 1.6f);
+	m_button_shadow_right.set_down_offset(1, 1);
 
 	m_button_shadow.add_image(IDB_ARROW_LEFT);
 	m_button_shadow.fit_to_image(true);
+	m_button_shadow.set_back_color(Gdiplus::Color::White, false);
 	m_button_shadow.use_hover();
 	//m_button_shadow.draw_border(true, -1, 10);
 	m_button_shadow.draw_shadow(true, 0.5f, 2.0f);
+	m_button_shadow.set_down_offset(1, 1);
 
 
 	m_slider_shadow_weight.set_style(CSCSliderCtrl::style_thumb_round);
