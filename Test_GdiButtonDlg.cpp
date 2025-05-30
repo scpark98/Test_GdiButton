@@ -487,7 +487,7 @@ LRESULT CTestGdiButtonDlg::on_message_CSCSliderCtrl(WPARAM wParam, LPARAM lParam
 	if (msg->pThis == &m_slider_shadow_weight)
 	{
 		TRACE(_T("shadow_weight = %f\n"), (float)msg->pos / 10.0f);
-		m_static_weight_param.set_textf(-1, _T("%.1f"), (float)msg->pos / 10.0f);
+		m_static_weight_param.set_text(_T("%.1f"), (float)msg->pos / 10.0f);
 		m_button_shadow.draw_shadow(true, (float)msg->pos / 10.0f, -1.0f);
 		m_button_shadow_left.draw_shadow(true, (float)msg->pos / 10.0f, -1.0f);
 		m_button_shadow_right.draw_shadow(true, (float)msg->pos / 10.0f, -1.0f);
@@ -495,7 +495,7 @@ LRESULT CTestGdiButtonDlg::on_message_CSCSliderCtrl(WPARAM wParam, LPARAM lParam
 	else if (msg->pThis == &m_slider_shadow_blur)
 	{
 		TRACE(_T("shadow_blur = %f\n"), (float)msg->pos / 10.0f);
-		m_static_blur_param.set_textf(-1, _T("%.1f"), (float)msg->pos / 10.0f);
+		m_static_blur_param.set_textf(_T("%.1f"), (float)msg->pos / 10.0f);
 		m_button_shadow.draw_shadow(true, -1.0f, (float)msg->pos / 10.0f);
 		m_button_shadow_left.draw_shadow(true, -1.0f, (float)msg->pos / 10.0f);
 		m_button_shadow_right.draw_shadow(true, -1.0f, (float)msg->pos / 10.0f);
