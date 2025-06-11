@@ -184,14 +184,14 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_shadow_left.set_back_color(Gdiplus::Color::White, false);
 	m_button_shadow_left.fit_to_image(false);
 	//m_button_shadow_left.draw_border(true, -1, 10);
-	m_button_shadow_left.draw_shadow(true , 1.0f, 1.6f);
+	m_button_shadow_left.draw_drop_shadow(true, 1.0f, 1.6f);
 	m_button_shadow_left.set_down_offset(1, 1);
 
 	m_button_shadow_right.add_image(IDB_ARROW_RIGHT);
 	m_button_shadow_right.set_back_color(Gdiplus::Color::White, false);
 	m_button_shadow_right.fit_to_image(false);
 	//m_button_shadow_right.draw_hover_rect(true, -1, 10); 
-	m_button_shadow_right.draw_shadow(true, 1.0f, 1.6f);
+	m_button_shadow_right.draw_drop_shadow(true, 1.0f, 1.6f);
 	m_button_shadow_right.set_down_offset(1, 1);
 
 	m_button_shadow.add_image(IDB_ARROW_LEFT);
@@ -199,7 +199,7 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_shadow.set_back_color(Gdiplus::Color::White, false);
 	m_button_shadow.use_hover();
 	//m_button_shadow.draw_border(true, -1, 10);
-	m_button_shadow.draw_shadow(true, 0.5f, 2.0f);
+	m_button_shadow.draw_drop_shadow(true, 0.5f, 2.0f);
 	m_button_shadow.set_down_offset(1, 1);
 
 
@@ -220,13 +220,14 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_ok.set_back_color(Gdiplus::Color::LightBlue);
 	m_button_ok.set_round(40);
 	//m_button_ok.set_transparent(true, m_cr_back);
-	//m_button_ok.draw_shadow();
+	m_button_ok.draw_back_shadow(true, 4.0f, 4.0f);
 
 
 	m_button_cancel.set_round(40);
 	m_button_cancel.set_back_color(Gdiplus::Color::Beige);
 	//m_button_cancel.set_transparent(true, m_cr_back);
 	//m_button_cancel.draw_border(true, 1, 14);
+	m_button_cancel.draw_back_shadow(true, 4.0f, 4.0f);
 
 	m_img.load(IDB_ARROW_LEFT);
 	m_img.save(_T("d:\\arrow_left.png"));
@@ -380,8 +381,8 @@ void CTestGdiButtonDlg::OnBnClickedOk()
 void CTestGdiButtonDlg::OnBnClickedCancel()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	if (AfxMessageBox(_T("exit?"), MB_OKCANCEL) == IDCANCEL)
-		return;
+	//if (AfxMessageBox(_T("exit?"), MB_OKCANCEL) == IDCANCEL)
+	//	return;
 
 	CDialogEx::OnCancel();
 }
@@ -470,12 +471,12 @@ void CTestGdiButtonDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBa
 	if (pScrollBar == (CScrollBar*)&m_slider_shadow_weight)
 	{
 		TRACE(_T("weight = %f\n"), (float)nPos / 10.0f);
-		m_button_shadow.draw_shadow(true, (float)nPos / 10.0f, -1.0f);
+		m_button_shadow.draw_drop_shadow(true, (float)nPos / 10.0f, -1.0f);
 	}
 	else if (pScrollBar == (CScrollBar*)&m_slider_shadow_blur)
 	{
 		TRACE(_T("blur = %f\n"), (float)nPos / 10.0f);
-		m_button_shadow.draw_shadow(true, -1.0f, (float)nPos / 10.0f);
+		m_button_shadow.draw_drop_shadow(true, -1.0f, (float)nPos / 10.0f);
 	}
 
 	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
@@ -487,18 +488,18 @@ LRESULT CTestGdiButtonDlg::on_message_CSCSliderCtrl(WPARAM wParam, LPARAM lParam
 	if (msg->pThis == &m_slider_shadow_weight)
 	{
 		TRACE(_T("shadow_weight = %f\n"), (float)msg->pos / 10.0f);
-		m_static_weight_param.set_text(_T("%.1f"), (float)msg->pos / 10.0f);
-		m_button_shadow.draw_shadow(true, (float)msg->pos / 10.0f, -1.0f);
-		m_button_shadow_left.draw_shadow(true, (float)msg->pos / 10.0f, -1.0f);
-		m_button_shadow_right.draw_shadow(true, (float)msg->pos / 10.0f, -1.0f);
+		m_static_weight_param.set_textf(_T("%.1f"), (float)msg->pos / 10.0f);
+		m_button_shadow.draw_drop_shadow(true, (float)msg->pos / 10.0f, -1.0f);
+		m_button_shadow_left.draw_drop_shadow(true, (float)msg->pos / 10.0f, -1.0f);
+		m_button_shadow_right.draw_drop_shadow(true, (float)msg->pos / 10.0f, -1.0f);
 	}
 	else if (msg->pThis == &m_slider_shadow_blur)
 	{
 		TRACE(_T("shadow_blur = %f\n"), (float)msg->pos / 10.0f);
 		m_static_blur_param.set_textf(_T("%.1f"), (float)msg->pos / 10.0f);
-		m_button_shadow.draw_shadow(true, -1.0f, (float)msg->pos / 10.0f);
-		m_button_shadow_left.draw_shadow(true, -1.0f, (float)msg->pos / 10.0f);
-		m_button_shadow_right.draw_shadow(true, -1.0f, (float)msg->pos / 10.0f);
+		m_button_shadow.draw_drop_shadow(true, -1.0f, (float)msg->pos / 10.0f);
+		m_button_shadow_left.draw_drop_shadow(true, -1.0f, (float)msg->pos / 10.0f);
+		m_button_shadow_right.draw_drop_shadow(true, -1.0f, (float)msg->pos / 10.0f);
 	}
 	return 0;
 }
