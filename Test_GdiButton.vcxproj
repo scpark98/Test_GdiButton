@@ -299,9 +299,14 @@
     <Image Include="res\images\enter_key.png" />
     <Image Include="res\images\IDB_BTN_SIZEAUTO_CLICK.png" />
     <Image Include="res\images\IDB_BTN_SIZEAUTO_NORMAL.png" />
+    <Image Include="res\images\light blue round 78x30.png" />
+    <Image Include="res\images\pop_btn_other_id_login_click.png" />
+    <Image Include="res\images\pop_btn_over.png" />
+    <Image Include="res\images\pop_btn_pw_get_click.png" />
     <Image Include="res\images\return.png" />
     <Image Include="res\images\round_button_down.png" />
     <Image Include="res\images\round_button_normal.png" />
+    <Image Include="res\images\ticket.png" />
     <Image Include="res\images\uncheck.png" />
     <Image Include="res\images\unchecked.png" />
     <Image Include="res\Test_GdiButton.ico" />

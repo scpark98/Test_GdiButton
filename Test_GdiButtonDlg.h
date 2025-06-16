@@ -25,6 +25,10 @@ public:
 	CToolTipCtrl		m_tooltip;
 
 	CGdiplusBitmap		m_img;
+	CGdiplusBitmap		m_img_shadow;
+	CRect				m_r_img;
+	CRect				m_r_img_shadow;
+	bool				m_lbutton_down = false;
 
 	Gdiplus::Color		m_cr_back = Gdiplus::Color::White;
 
@@ -90,4 +94,10 @@ public:
 	CSCStatic m_static_weight_param;
 	CSCStatic m_static_blur_param;
 	afx_msg void OnBnClickedCheckFitToImage();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	CGdiButton m_button_short;
+	CGdiButton m_button_medium;
+	CGdiButton m_button_long;
 };

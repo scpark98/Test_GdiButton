@@ -164,5 +164,20 @@
     <Image Include="res\images\IDB_BTN_SIZEAUTO_NORMAL.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="res\images\ticket.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\images\light blue round 78x30.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\images\pop_btn_other_id_login_click.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\images\pop_btn_over.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\images\pop_btn_pw_get_click.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>

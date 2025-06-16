@@ -90,6 +90,9 @@ void CTestGdiButtonDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SLIDER_SHADOW_BLUR, m_slider_shadow_blur);
 	DDX_Control(pDX, IDC_STATIC_WEIGHT_PARAM, m_static_weight_param);
 	DDX_Control(pDX, IDC_STATIC_BLUR_PARAM2, m_static_blur_param);
+	DDX_Control(pDX, IDC_BUTTON_SHORT, m_button_short);
+	DDX_Control(pDX, IDC_BUTTON_MEDIUM, m_button_medium);
+	DDX_Control(pDX, IDC_BUTTON_LONG, m_button_long);
 }
 
 BEGIN_MESSAGE_MAP(CTestGdiButtonDlg, CDialogEx)
@@ -108,6 +111,9 @@ BEGIN_MESSAGE_MAP(CTestGdiButtonDlg, CDialogEx)
 	ON_REGISTERED_MESSAGE(Message_CSCSliderCtrl, &CTestGdiButtonDlg::on_message_CSCSliderCtrl)
 	ON_WM_CTLCOLOR()
 	ON_BN_CLICKED(IDC_CHECK_FIT_TO_IMAGE, &CTestGdiButtonDlg::OnBnClickedCheckFitToImage)
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
+	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 
 
@@ -146,6 +152,9 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_resize.Create(this);
 	m_resize.Add(IDOK, 100, 100, 0, 0);
 	m_resize.Add(IDCANCEL, 100, 100, 0, 0);
+	m_resize.Add(IDC_BUTTON_SHORT, 100, 100, 0, 0);
+	m_resize.Add(IDC_BUTTON_MEDIUM, 100, 100, 0, 0);
+	m_resize.Add(IDC_BUTTON_LONG, 100, 100, 0, 0);
 
 	m_tooltip.Create(this);// , TTS_ALWAYSTIP | TTS_NOPREFIX | TTS_NOANIMATE);
 
@@ -211,27 +220,39 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_slider_shadow_blur.set_back_color(RGB(255, 255, 255));
 	m_slider_shadow_blur.SetRange(0, 100);
 
+	m_button_short.add_image(IDB_PNG_SLATE_GRAY_SHORT);
+	m_button_short.fit_to_image(true);
+	m_button_medium.add_image(IDB_PNG_SLATE_GRAY_MEDIUM);
+	m_button_medium.fit_to_image(true);
+	m_button_long.add_image(IDB_PNG_SLATE_GRAY_LONG);
+	m_button_long.fit_to_image(true);
 
 	//draw_border()를 호출할 때 round를 1 이상의 값을 주면 m_transparent = true가 되므로 약간의 깜빡임이 발생할 수 있다.
 	//m_button_ok.draw_border(true, 1, 44);
-	m_button_ok.use_hover();
+	m_button_ok.add_image(IDB_ROUND_BUTTON_NORMAL);
+	//m_button_ok.use_hover();
 	m_button_ok.set_header_image(IDB_CHECKED_BLUE);
-	m_button_ok.set_header_image_gap(8);
-	m_button_ok.set_back_color(Gdiplus::Color::LightBlue);
-	m_button_ok.set_round(40);
+	m_button_ok.set_header_image_gap(2);
+	m_button_ok.set_text_color(Gdiplus::Color::White);
+	//m_button_ok.set_round(40);
 	//m_button_ok.set_transparent(true, m_cr_back);
-	m_button_ok.draw_back_shadow(true, 4.0f, 4.0f);
+	m_button_ok.draw_back_shadow(true);// , 2.0f, 3.1f);
 
-
-	m_button_cancel.set_round(40);
-	m_button_cancel.set_back_color(Gdiplus::Color::Beige);
+	m_button_cancel.add_image(IDB_LIGHT_BLUE_ROUND);
+	//m_button_cancel.set_round(40);
+	//m_button_cancel.set_back_color(Gdiplus::Color::Beige);
 	//m_button_cancel.set_transparent(true, m_cr_back);
 	//m_button_cancel.draw_border(true, 1, 14);
-	m_button_cancel.draw_back_shadow(true, 4.0f, 4.0f);
+	//m_button_cancel.draw_back_shadow(true);// , 4.0f, 4.0f);
 
-	m_img.load(IDB_ARROW_LEFT);
-	m_img.save(_T("d:\\arrow_left.png"));
-	m_img.set_alpha(128);
+	m_img.load(IDB_ROUND_BUTTON_NORMAL);
+	m_img.create_back_shadow_image(&m_img_shadow, 20.0f / 10.0f);
+	m_r_img = make_rect(440, 120, m_img.width, m_img.height);
+	m_r_img_shadow = make_rect(440, 220, m_img_shadow.width, m_img_shadow.height);
+
+	//m_img.blur(3.2f, 1);
+	//m_img.save(_T("d:\\arrow_left.png"));
+	//m_img.set_alpha(128);
 	//m_img.resize(200, 0);
 	//m_img.resize(0, 356);
 
@@ -241,7 +262,8 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 
 	RestoreWindowPosition(&theApp, this);
 
-
+	CString str = CString(CSCColorMap::get_color_name(Gdiplus::Color(0, 100, 150, 230), false).c_str());
+	TRACE(_T("nearest color name = %s\n"), str);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -295,8 +317,9 @@ void CTestGdiButtonDlg::OnPaint()
 		if (m_img_back_index > 0 && m_img_back_index < m_img_back.size())
 			m_img_back[m_img_back_index]->draw(g, rc, m_img_back_mode);
 
-		//우측 상단에 이미지를 표시는 예졔코드
-		m_img.draw(g, rc.right - m_img.width - 20, rc.top + 20);
+		//우측 상단에 이미지를 표시하는 예졔코드
+		m_img_shadow.draw(g, m_r_img_shadow.left, m_r_img_shadow.top);
+		m_img.draw(g, m_r_img.left, m_r_img.top);
 
 		/*
 		CRect r;
@@ -461,6 +484,13 @@ BOOL CTestGdiButtonDlg::PreTranslateMessage(MSG* pMsg)
 		m_tooltip.SendMessage(TTM_RELAYEVENT, 0, (LPARAM)&msg);
 	}
 
+	if (pMsg->message == WM_KEYDOWN)
+	{
+		switch (pMsg->wParam)
+		{
+		}
+	}
+
 	return CDialogEx::PreTranslateMessage(pMsg);
 }
 
@@ -500,6 +530,9 @@ LRESULT CTestGdiButtonDlg::on_message_CSCSliderCtrl(WPARAM wParam, LPARAM lParam
 		m_button_shadow.draw_drop_shadow(true, -1.0f, (float)msg->pos / 10.0f);
 		m_button_shadow_left.draw_drop_shadow(true, -1.0f, (float)msg->pos / 10.0f);
 		m_button_shadow_right.draw_drop_shadow(true, -1.0f, (float)msg->pos / 10.0f);
+
+		m_img.create_back_shadow_image(&m_img_shadow, (float)msg->pos / 10.0f);
+		Invalidate();
 	}
 	return 0;
 }
@@ -528,4 +561,34 @@ HBRUSH CTestGdiButtonDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 void CTestGdiButtonDlg::OnBnClickedCheckFitToImage()
 {
 	m_check_fit_to_control.EnableWindow(m_check_fit_to_image.GetCheck() == BST_CHECKED ? FALSE : TRUE);
+}
+
+void CTestGdiButtonDlg::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	m_lbutton_down = true;
+	SetCapture();
+
+	CDialogEx::OnLButtonDown(nFlags, point);
+}
+
+void CTestGdiButtonDlg::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	m_lbutton_down = false;
+	ReleaseCapture();
+	CDialogEx::OnLButtonUp(nFlags, point);
+}
+
+void CTestGdiButtonDlg::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if (m_lbutton_down)
+	{
+		//마우스가 눌린 상태에서 이동하면 이미지 위치를 변경한다.
+		m_r_img.MoveToXY(point.x, point.y);
+		Invalidate();
+	}
+
+	CDialogEx::OnMouseMove(nFlags, point);
 }
