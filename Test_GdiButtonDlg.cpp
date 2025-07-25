@@ -262,8 +262,8 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 
 	RestoreWindowPosition(&theApp, this);
 
-	CString str = CString(CSCColorMap::get_color_name(Gdiplus::Color(0, 100, 150, 230), false).c_str());
-	TRACE(_T("nearest color name = %s\n"), str);
+	//CString str = CString(CSCColorMap::get_color_name(Gdiplus::Color(0, 100, 150, 230), false).c_str());
+	//TRACE(_T("nearest color name = %s\n"), str);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
