@@ -6,12 +6,12 @@
 
 #include <deque>
 
-#include "../../Common/GdiplusBitmap.h"
-#include "../../Common/CButton/GdiButton/GdiButton.h"
-#include "../../Common/ResizeCtrl.h"
-#include "../../Common/CStatic/SCStatic/SCStatic.h"
-#include "../../Common/CStatic/XPGroupBox/XPGroupBox.h"
-#include "../../Common/CSliderCtrl/SCSliderCtrl/SCSliderCtrl.h"
+#include "Common/SCGdiplusBitmap.h"
+#include "Common/CButton/GdiButton/GdiButton.h"
+#include "Common/ResizeCtrl.h"
+#include "Common/CStatic/SCStatic/SCStatic.h"
+#include "Common/CStatic/XPGroupBox/XPGroupBox.h"
+#include "Common/CSliderCtrl/SCSliderCtrl/SCSliderCtrl.h"
 
 // CTestGdiButtonDlg 대화 상자
 class CTestGdiButtonDlg : public CDialogEx
@@ -24,15 +24,15 @@ public:
 
 	CToolTipCtrl		m_tooltip;
 
-	CGdiplusBitmap		m_img;
-	CGdiplusBitmap		m_img_shadow;
+	CSCGdiplusBitmap	m_img;
+	CSCGdiplusBitmap	m_img_shadow;
 	CRect				m_r_img;
 	CRect				m_r_img_shadow;
 	bool				m_lbutton_down = false;
 
 	Gdiplus::Color		m_cr_back = Gdiplus::Color::White;
 
-	std::deque<CGdiplusBitmap*>	m_img_back;
+	std::deque<CSCGdiplusBitmap*>	m_img_back;
 	int					m_img_back_index;
 	int					m_img_back_mode;		//origin? zoom? stretch?
 	void				load_back_images();

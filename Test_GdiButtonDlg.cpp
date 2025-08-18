@@ -195,6 +195,7 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	//m_button_shadow_left.draw_border(true, -1, 10);
 	m_button_shadow_left.draw_drop_shadow(true, 1.0f, 1.6f);
 	m_button_shadow_left.set_down_offset(1, 1);
+	m_button_shadow_left.set_tooltip_text(_T("left\narrow"));
 
 	m_button_shadow_right.add_image(IDB_ARROW_RIGHT);
 	m_button_shadow_right.set_back_color(Gdiplus::Color::White, false);
@@ -202,6 +203,7 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	//m_button_shadow_right.draw_hover_rect(true, -1, 10); 
 	m_button_shadow_right.draw_drop_shadow(true, 1.0f, 1.6f);
 	m_button_shadow_right.set_down_offset(1, 1);
+	m_button_shadow_right.set_tooltip_text(_T("right"));
 
 	m_button_shadow.add_image(IDB_ARROW_LEFT);
 	m_button_shadow.fit_to_image(true);
@@ -346,12 +348,12 @@ void CTestGdiButtonDlg::load_back_images()
 	release_back_images();
 
 	m_combo_back_image.AddString(_T("없음"));
-	m_img_back.push_back(new CGdiplusBitmap());
+	m_img_back.push_back(new CSCGdiplusBitmap());
 
 	std::deque<CString> dq_images = find_all_files(get_exe_directory() + _T("\\images\\back"), _T("*"), FILE_EXTENSION_IMAGE, _T(""), false);
 	for (const auto& img : dq_images)
 	{
-		CGdiplusBitmap* image = new CGdiplusBitmap();
+		CSCGdiplusBitmap* image = new CSCGdiplusBitmap();
 		if (image->load(img))
 		{
 			image->resize(640, 0);
