@@ -93,6 +93,15 @@ void CTestGdiButtonDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_SHORT, m_button_short);
 	DDX_Control(pDX, IDC_BUTTON_MEDIUM, m_button_medium);
 	DDX_Control(pDX, IDC_BUTTON_LONG, m_button_long);
+	DDX_Control(pDX, IDC_BUTTON_REFRESH, m_button_refresh);
+	DDX_Control(pDX, IDC_RADIO_READY, m_button_ready);
+	DDX_Control(pDX, IDC_RADIO_POST_PROC, m_button_post_proc);
+	DDX_Control(pDX, IDC_RADIO_MEAL_TIME, m_button_meal_time);
+	DDX_Control(pDX, IDC_RADIO_EDUCATION, m_button_education);
+	DDX_Control(pDX, IDC_BUTTON_REFRESH, m_button_refresh);
+	DDX_Control(pDX, IDC_BUTTON_PIP_OFF, m_button_pip_off);
+	DDX_Control(pDX, IDC_BUTTON_SWITCH, m_button_switch);
+	DDX_Control(pDX, IDC_BUTTON_SHARE, m_button_share);
 }
 
 BEGIN_MESSAGE_MAP(CTestGdiButtonDlg, CDialogEx)
@@ -252,11 +261,37 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_r_img = make_rect(440, 120, m_img.width, m_img.height);
 	m_r_img_shadow = make_rect(440, 220, m_img_shadow.width, m_img_shadow.height);
 
-	//m_img.blur(3.2f, 1);
-	//m_img.save(_T("d:\\arrow_left.png"));
-	//m_img.set_alpha(128);
-	//m_img.resize(200, 0);
-	//m_img.resize(0, 356);
+
+	//radio, push-like
+	m_button_ready.set_round(-1, Gdiplus::Color::Coral, Gdiplus::Color::White);
+	m_button_ready.set_color(Gdiplus::Color::Coral, Gdiplus::Color::White);
+	m_button_ready.set_auto_hover_down_color();
+	m_button_ready.set_font_name(_T("Noto Sans KR Medium"));
+	m_button_ready.set_font_size(15);
+
+	m_button_post_proc.copy_properties(m_button_ready);
+	m_button_meal_time.copy_properties(m_button_ready);
+	m_button_education.copy_properties(m_button_ready);
+
+
+	//push-button
+	m_button_refresh.set_round(-1, Gdiplus::Color::Coral, Gdiplus::Color::White);
+	m_button_refresh.set_color(Gdiplus::Color::Coral, Gdiplus::Color::White);
+	m_button_refresh.set_auto_hover_down_color();
+	m_button_refresh.set_font_name(_T("Noto Sans KR Medium"));
+	m_button_refresh.set_font_size(15);
+
+	m_button_pip_off.copy_properties(m_button_refresh);
+	m_button_switch.copy_properties(m_button_refresh);
+
+
+	//dimgray back buttons
+	m_button_share.set_color(Gdiplus::Color::White, Gdiplus::Color::DimGray);
+	m_button_share.set_font_name(_T("Noto Sans KR"));
+	m_button_share.set_font_size(11);
+
+
+
 
 	CRect r = m_img.get_transparent_rect();
 

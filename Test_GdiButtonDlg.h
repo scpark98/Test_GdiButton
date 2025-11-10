@@ -100,4 +100,13 @@ public:
 	CGdiButton m_button_short;
 	CGdiButton m_button_medium;
 	CGdiButton m_button_long;
+	CGdiButton m_button_auto_shadow;
+	CGdiButton m_button_ready;
+	CGdiButton m_button_post_proc;
+	CGdiButton m_button_meal_time;
+	CGdiButton m_button_education;
+	CGdiButton m_button_refresh;
+	CGdiButton m_button_pip_off;
+	CGdiButton m_button_switch;
+	CGdiButton m_button_share;
 };

@@ -61,6 +61,15 @@
 #define IDC_STATIC_WEIGHT_PARAM         1027
 #define IDC_STATIC_WEIGHT_PARAM2        1028
 #define IDC_STATIC_BLUR_PARAM2          1028
+#define IDC_BUTTON_REFRESH              1029
+#define IDC_BUTTON_SWITCH               1030
+#define IDC_RADIO_READY                 1031
+#define IDC_RADIO_POST_PROC             1032
+#define IDC_RADIO_MEAL_TIME             1033
+#define IDC_RADIO_EDUCATION             1034
+#define IDC_BUTTON_PIP_OFF              1035
+#define IDC_BUTTON_SHARE                1036
+#define IDC_BUTTON_SHARE2               1037
 
 // Next default values for new objects
 // 
@@ -68,7 +77,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        149
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1028
+#define _APS_NEXT_CONTROL_VALUE         1032
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
