@@ -109,4 +109,6 @@ public:
 	CGdiButton m_button_pip_off;
 	CGdiButton m_button_switch;
 	CGdiButton m_button_share;
+	CGdiButton m_button_end_consult;
+	CGdiButton m_button_logout;
 };

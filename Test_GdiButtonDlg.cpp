@@ -102,6 +102,8 @@ void CTestGdiButtonDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_PIP_OFF, m_button_pip_off);
 	DDX_Control(pDX, IDC_BUTTON_SWITCH, m_button_switch);
 	DDX_Control(pDX, IDC_BUTTON_SHARE, m_button_share);
+	DDX_Control(pDX, IDC_BUTTON_END_CONSULT, m_button_end_consult);
+	DDX_Control(pDX, IDC_BUTTON_LOGOUT, m_button_logout);
 }
 
 BEGIN_MESSAGE_MAP(CTestGdiButtonDlg, CDialogEx)
@@ -238,18 +240,21 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_long.add_image(IDB_PNG_SLATE_GRAY_LONG);
 	m_button_long.fit_to_image(true);
 
-	//draw_border()를 호출할 때 round를 1 이상의 값을 주면 m_transparent = true가 되므로 약간의 깜빡임이 발생할 수 있다.
-	//m_button_ok.draw_border(true, 1, 44);
+	//확인버튼
+	//주어진 이미지를 사용하고 header image를 레이블 옆에 추가한다.
 	m_button_ok.add_image(IDB_ROUND_BUTTON_NORMAL);
-	//m_button_ok.use_hover();
+	m_button_ok.set_draw_own_text();
 	m_button_ok.set_header_image(IDB_CHECKED_BLUE);
-	m_button_ok.set_header_image_gap(2);
+	m_button_ok.set_header_image_gap(4);
 	m_button_ok.set_text_color(Gdiplus::Color::White);
+	m_button_ok.set_parent_back_color(Gdiplus::Color::White);
 	//m_button_ok.set_round(40);
 	//m_button_ok.set_transparent(true, m_cr_back);
-	m_button_ok.draw_back_shadow(true);// , 2.0f, 3.1f);
+	//m_button_ok.draw_back_shadow(true);// , 2.0f, 3.1f);
 
-	m_button_cancel.add_image(IDB_LIGHT_BLUE_ROUND);
+	//m_button_cancel.add_image(IDB_LIGHT_BLUE_ROUND);
+	//m_button_cancel.set_draw_own_text();
+	m_button_cancel.draw_border();
 	//m_button_cancel.set_round(40);
 	//m_button_cancel.set_back_color(Gdiplus::Color::Beige);
 	//m_button_cancel.set_transparent(true, m_cr_back);
@@ -269,9 +274,9 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_ready.set_font_name(_T("Noto Sans KR Medium"));
 	m_button_ready.set_font_size(15);
 
-	m_button_post_proc.copy_properties(m_button_ready);
-	m_button_meal_time.copy_properties(m_button_ready);
-	m_button_education.copy_properties(m_button_ready);
+	m_button_ready.copy_properties(m_button_post_proc);
+	m_button_ready.copy_properties(m_button_meal_time);
+	m_button_ready.copy_properties(m_button_education);
 
 
 	//push-button
@@ -281,8 +286,8 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_refresh.set_font_name(_T("Noto Sans KR Medium"));
 	m_button_refresh.set_font_size(15);
 
-	m_button_pip_off.copy_properties(m_button_refresh);
-	m_button_switch.copy_properties(m_button_refresh);
+	m_button_refresh.copy_properties(m_button_pip_off);
+	m_button_refresh.copy_properties(m_button_switch);
 
 
 	//dimgray back buttons
@@ -290,8 +295,10 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_share.set_font_name(_T("Noto Sans KR"));
 	m_button_share.set_font_size(11);
 
+	m_button_share.copy_properties(m_button_end_consult);
 
-
+	m_button_share.copy_properties(m_button_logout);
+	m_button_logout.set_color(Gdiplus::Color::Coral, Gdiplus::Color::DimGray);
 
 	CRect r = m_img.get_transparent_rect();
 
@@ -350,6 +357,11 @@ void CTestGdiButtonDlg::OnPaint()
 		CMemoryDC dc(&dc1, &rc);
 
 		Gdiplus::Graphics g(dc.GetSafeHdc());
+
+		g.SetTextRenderingHint(Gdiplus::TextRenderingHintAntiAlias);
+		g.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
+
+		draw_round_rect(&g, Gdiplus::Rect(526, 65, 843 - 526, 116 - 65), Gdiplus::Color::Transparent, Gdiplus::Color::DimGray, 12.f);
 
 		if (m_img_back_index > 0 && m_img_back_index < m_img_back.size())
 			m_img_back[m_img_back_index]->draw(g, rc, m_img_back_mode);
@@ -603,8 +615,8 @@ void CTestGdiButtonDlg::OnBnClickedCheckFitToImage()
 void CTestGdiButtonDlg::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-	m_lbutton_down = true;
-	SetCapture();
+	//m_lbutton_down = true;
+	//SetCapture();
 
 	CDialogEx::OnLButtonDown(nFlags, point);
 }
@@ -620,6 +632,11 @@ void CTestGdiButtonDlg::OnLButtonUp(UINT nFlags, CPoint point)
 void CTestGdiButtonDlg::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	CString str;
+
+	str.Format(_T("%d, %d"), point.x, point.y);
+	SetWindowText(str);
+
 	if (m_lbutton_down)
 	{
 		//마우스가 눌린 상태에서 이동하면 이미지 위치를 변경한다.

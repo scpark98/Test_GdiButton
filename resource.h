@@ -70,6 +70,9 @@
 #define IDC_BUTTON_PIP_OFF              1035
 #define IDC_BUTTON_SHARE                1036
 #define IDC_BUTTON_SHARE2               1037
+#define IDC_BUTTON_END_CONSULT          1037
+#define IDC_BUTTON_SHARE3               1038
+#define IDC_BUTTON_LOGOUT               1038
 
 // Next default values for new objects
 // 
