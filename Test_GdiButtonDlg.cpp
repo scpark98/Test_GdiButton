@@ -267,16 +267,31 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_r_img_shadow = make_rect(440, 220, m_img_shadow.width, m_img_shadow.height);
 
 
-	//radio, push-like
-	m_button_ready.set_round(-1, Gdiplus::Color::Coral, Gdiplus::Color::White);
-	m_button_ready.set_color(Gdiplus::Color::Coral, Gdiplus::Color::White);
-	m_button_ready.set_auto_hover_down_color();
+	Gdiplus::Color cr_text = gGRAY(232);
+	Gdiplus::Color cr_parent_back = GRAY(59);
+
+	m_button_ready.set_round(-1, cr_text, cr_parent_back);
+	m_button_ready.set_text_color(cr_text, false);// , cr_text, cr_text, Gdiplus::Color::Gray);
+	m_button_ready.set_back_color(cr_parent_back, cr_parent_back, Gdiplus::Color::Coral, Gdiplus::Color::Gray);
+	m_button_ready.set_border_color(cr_text, cr_text, Gdiplus::Color::Coral, Gdiplus::Color::Gray);
+	//m_button_ready.set_auto_hover_down_color();
 	m_button_ready.set_font_name(_T("Noto Sans KR Medium"));
-	m_button_ready.set_font_size(15);
+	m_button_ready.set_font_size(12);
 
 	m_button_ready.copy_properties(m_button_post_proc);
 	m_button_ready.copy_properties(m_button_meal_time);
 	m_button_ready.copy_properties(m_button_education);
+
+
+	//dimgray back buttons
+	m_button_share.set_color(cr_text, cr_parent_back, false);
+	m_button_share.set_font_name(_T("Noto Sans KR"));
+	m_button_share.set_font_size(10);
+	m_button_share.set_down_offset(1, 1);
+
+	m_button_share.copy_properties(m_button_end_consult);
+	m_button_share.copy_properties(m_button_logout);
+	m_button_logout.set_color(Gdiplus::Color::Coral, cr_parent_back, false);
 
 
 	//push-button
@@ -289,16 +304,6 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_refresh.copy_properties(m_button_pip_off);
 	m_button_refresh.copy_properties(m_button_switch);
 
-
-	//dimgray back buttons
-	m_button_share.set_color(Gdiplus::Color::White, Gdiplus::Color::DimGray);
-	m_button_share.set_font_name(_T("Noto Sans KR"));
-	m_button_share.set_font_size(11);
-
-	m_button_share.copy_properties(m_button_end_consult);
-
-	m_button_share.copy_properties(m_button_logout);
-	m_button_logout.set_color(Gdiplus::Color::Coral, Gdiplus::Color::DimGray);
 
 	CRect r = m_img.get_transparent_rect();
 
@@ -361,24 +366,11 @@ void CTestGdiButtonDlg::OnPaint()
 		g.SetTextRenderingHint(Gdiplus::TextRenderingHintAntiAlias);
 		g.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
 
-		draw_round_rect(&g, Gdiplus::Rect(526, 65, 843 - 526, 116 - 65), Gdiplus::Color::Transparent, Gdiplus::Color::DimGray, 12.f);
+		draw_rect(g, CRect(415, 80, 1175, 140), Gdiplus::Color::Transparent, gGRAY(59));
+		//draw_round_rect(&g, Gdiplus::Rect(526, 65, 843 - 526, 116 - 65), Gdiplus::Color::Transparent, gGRAY(34), 12.f);
 
 		if (m_img_back_index > 0 && m_img_back_index < m_img_back.size())
 			m_img_back[m_img_back_index]->draw(g, rc, m_img_back_mode);
-
-		//우측 상단에 이미지를 표시하는 예졔코드
-		m_img_shadow.draw(g, m_r_img_shadow.left, m_r_img_shadow.top);
-		m_img.draw(g, m_r_img.left, m_r_img.top);
-
-		/*
-		CRect r;
-		m_button_ok.GetWindowRect(r);
-		ScreenToClient(r);
-		r.InflateRect(8, 8);
-		CGdiplusBitmap img;
-		img.round_shadow_rect(r.Width(), r.Height(), 14.0f, 2.f, Gdiplus::Color(255, 192, 192, 192));
-		img.draw(g, r.left, r.top);
-		*/
 	}
 }
 
