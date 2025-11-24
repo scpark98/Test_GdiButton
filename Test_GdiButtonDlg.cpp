@@ -242,7 +242,7 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 
 	//확인버튼
 	//주어진 이미지를 사용하고 header image를 레이블 옆에 추가한다.
-	m_button_ok.add_image(IDB_ROUND_BUTTON_NORMAL);
+	//m_button_ok.add_image(IDB_ROUND_BUTTON_NORMAL);
 	m_button_ok.set_draw_own_text();
 	m_button_ok.set_header_image(IDB_CHECKED_BLUE);
 	m_button_ok.set_header_image_gap(4);
