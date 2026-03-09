@@ -104,6 +104,9 @@ void CTestGdiButtonDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_SHARE, m_button_share);
 	DDX_Control(pDX, IDC_BUTTON_END_CONSULT, m_button_end_consult);
 	DDX_Control(pDX, IDC_BUTTON_LOGOUT, m_button_logout);
+	DDX_Control(pDX, IDC_BUTTON_COLOR_WHEEL, m_button_color_wheel);
+	DDX_Control(pDX, IDC_STATIC0, m_static0);
+	DDX_Control(pDX, IDC_BUTTON_CAPTURE, m_button_capture);
 }
 
 BEGIN_MESSAGE_MAP(CTestGdiButtonDlg, CDialogEx)
@@ -171,7 +174,8 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 
 	load_back_images();
 
-	m_static_back_image.set_transparent();
+
+	m_static_back_image.set_back_color(Gdiplus::Color::White);
 
 	m_check_stretch.set_3state();
 	m_check_stretch.set_transparent();
@@ -305,6 +309,17 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_refresh.copy_properties(m_button_switch);
 
 
+	CSCGdiplusBitmap img_wheel;
+	img_wheel.create_rgb_color_wheel();
+	m_button_color_wheel.add_image(&img_wheel);// , & img_wheel, & img_wheel, & img_wheel);
+	m_button_color_wheel.fit_to_image(true);
+	m_button_color_wheel.draw_border();
+	m_button_color_wheel.set_border_color(Gdiplus::Color::Red, false);
+
+	m_button_capture.add_image(IDB_PNG_CAPTURE);
+	m_button_capture.fit_to_image(true);
+	m_button_capture.set_transparent(true);
+
 	CRect r = m_img.get_transparent_rect();
 
 	SetWindowTheme(GetDlgItem(IDC_EDIT1)->m_hWnd, _T(""), _T(""));
@@ -366,11 +381,22 @@ void CTestGdiButtonDlg::OnPaint()
 		g.SetTextRenderingHint(Gdiplus::TextRenderingHintAntiAlias);
 		g.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
 
-		draw_rect(g, CRect(415, 80, 1175, 140), Gdiplus::Color::Transparent, gGRAY(59));
-		//draw_round_rect(&g, Gdiplus::Rect(526, 65, 843 - 526, 116 - 65), Gdiplus::Color::Transparent, gGRAY(34), 12.f);
-
-		if (m_img_back_index > 0 && m_img_back_index < m_img_back.size())
+		if (m_img_back_index == 0)
+		{
+			draw_rect(dc, rc, NULL_PEN, GetSysColor(COLOR_3DFACE));
+		}
+		else if (m_img_back_index == 1)
+		{
+			draw_rect(dc, rc, NULL_PEN, white);
+		}
+		else if (m_img_back_index > 1 && m_img_back_index < m_img_back.size())
+		{
 			m_img_back[m_img_back_index]->draw(g, rc, m_img_back_mode);
+		}
+
+
+		//대기, 후처리 식사 교육 버튼들의 어두운 회색 배경
+		draw_rect(g, CRect(415, 80, 1175, 140), Gdiplus::Color::Transparent, gGRAY(59));
 	}
 }
 
@@ -386,7 +412,10 @@ void CTestGdiButtonDlg::load_back_images()
 	m_combo_back_image.ResetContent();
 	release_back_images();
 
-	m_combo_back_image.AddString(_T("없음"));
+	m_combo_back_image.AddString(_T("default Dialog Face"));
+	m_img_back.push_back(new CSCGdiplusBitmap());
+
+	m_combo_back_image.AddString(_T("White"));
 	m_img_back.push_back(new CSCGdiplusBitmap());
 
 	std::deque<CString> dq_images = find_all_files(get_exe_directory() + _T("\\images\\back"), _T("*"), FILE_EXTENSION_IMAGE, _T(""), false);
@@ -427,7 +456,7 @@ void CTestGdiButtonDlg::OnCbnSelchangeComboBackImage()
 		return;
 
 	m_img_back_index = index;
-	m_check_stretch.EnableWindow(m_img_back_index != 0);
+	m_check_stretch.EnableWindow(m_img_back_index > 1);
 
 	AfxGetApp()->WriteProfileInt(_T("setting"), _T("back image index"), m_img_back_index);
 	Invalidate();
@@ -464,7 +493,6 @@ void CTestGdiButtonDlg::OnDestroy()
 BOOL CTestGdiButtonDlg::OnEraseBkgnd(CDC* pDC)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-
 	return FALSE;
 	return CDialogEx::OnEraseBkgnd(pDC);
 }
@@ -572,8 +600,8 @@ LRESULT CTestGdiButtonDlg::on_message_CSCSliderCtrl(WPARAM wParam, LPARAM lParam
 		m_button_shadow_left.draw_drop_shadow(true, -1.0f, (float)msg->pos / 10.0f);
 		m_button_shadow_right.draw_drop_shadow(true, -1.0f, (float)msg->pos / 10.0f);
 
-		m_img.create_back_shadow_image(&m_img_shadow, (float)msg->pos / 10.0f);
-		Invalidate();
+		//m_img.create_back_shadow_image(&m_img_shadow, (float)msg->pos / 10.0f);
+		//Invalidate();
 	}
 	return 0;
 }

@@ -33,7 +33,7 @@ public:
 	Gdiplus::Color		m_cr_back = Gdiplus::Color::White;
 
 	std::deque<CSCGdiplusBitmap*>	m_img_back;
-	int					m_img_back_index;
+	int					m_img_back_index;		//0:COLOR_3DFACE, 1:White, 2~:loaded back image
 	int					m_img_back_mode;		//origin? zoom? stretch?
 	void				load_back_images();
 	void				release_back_images();
@@ -111,4 +111,7 @@ public:
 	CGdiButton m_button_share;
 	CGdiButton m_button_end_consult;
 	CGdiButton m_button_logout;
+	CGdiButton m_button_color_wheel;
+	CStatic m_static0;
+	CGdiButton m_button_capture;
 };
