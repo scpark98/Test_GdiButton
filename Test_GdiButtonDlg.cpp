@@ -107,6 +107,8 @@ void CTestGdiButtonDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_COLOR_WHEEL, m_button_color_wheel);
 	DDX_Control(pDX, IDC_STATIC0, m_static0);
 	DDX_Control(pDX, IDC_BUTTON_CAPTURE, m_button_capture);
+	DDX_Control(pDX, IDC_BUTTON_MENU, m_button_menu);
+	DDX_Control(pDX, IDC_BUTTON_MFC_MENU, m_button_menu_mfc);
 }
 
 BEGIN_MESSAGE_MAP(CTestGdiButtonDlg, CDialogEx)
@@ -123,11 +125,14 @@ BEGIN_MESSAGE_MAP(CTestGdiButtonDlg, CDialogEx)
 	ON_WM_WINDOWPOSCHANGED()
 	ON_WM_HSCROLL()
 	ON_REGISTERED_MESSAGE(Message_CSCSliderCtrl, &CTestGdiButtonDlg::on_message_CSCSliderCtrl)
+	ON_REGISTERED_MESSAGE(Message_CGdiButton, &CTestGdiButtonDlg::on_message_CGdiButton)
 	ON_WM_CTLCOLOR()
 	ON_BN_CLICKED(IDC_CHECK_FIT_TO_IMAGE, &CTestGdiButtonDlg::OnBnClickedCheckFitToImage)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_MOUSEMOVE()
+	ON_BN_CLICKED(IDC_BUTTON_MENU, &CTestGdiButtonDlg::OnBnClickedButtonMenu)
+	ON_BN_CLICKED(IDC_BUTTON_MFC_MENU, &CTestGdiButtonDlg::OnBnClickedButtonMfcMenu)
 END_MESSAGE_MAP()
 
 
@@ -250,16 +255,16 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_ok.set_draw_own_text();
 	m_button_ok.set_header_image(IDB_CHECKED_BLUE);
 	m_button_ok.set_header_image_gap(4);
-	m_button_ok.set_text_color(Gdiplus::Color::White);
+	//m_button_ok.set_text_color(Gdiplus::Color::White);
 	m_button_ok.set_parent_back_color(Gdiplus::Color::White);
-	//m_button_ok.set_round(40);
+	m_button_ok.set_round(8, Gdiplus::Color::Gray);
 	//m_button_ok.set_transparent(true, m_cr_back);
 	//m_button_ok.draw_back_shadow(true);// , 2.0f, 3.1f);
 
 	//m_button_cancel.add_image(IDB_LIGHT_BLUE_ROUND);
 	//m_button_cancel.set_draw_own_text();
 	m_button_cancel.draw_border();
-	//m_button_cancel.set_round(40);
+	m_button_cancel.set_round(8, Gdiplus::Color::Gray);
 	//m_button_cancel.set_back_color(Gdiplus::Color::Beige);
 	//m_button_cancel.set_transparent(true, m_cr_back);
 	//m_button_cancel.draw_border(true, 1, 14);
@@ -319,6 +324,9 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_capture.add_image(IDB_PNG_CAPTURE);
 	m_button_capture.fit_to_image(true);
 	m_button_capture.set_transparent(true);
+
+	m_button_menu.set_menu_items(_T("menu 0"), _T("menu 1"), _T("menu 2"));
+
 
 	CRect r = m_img.get_transparent_rect();
 
@@ -606,6 +614,16 @@ LRESULT CTestGdiButtonDlg::on_message_CSCSliderCtrl(WPARAM wParam, LPARAM lParam
 	return 0;
 }
 
+LRESULT CTestGdiButtonDlg::on_message_CGdiButton(WPARAM wParam, LPARAM lParam)
+{
+	CGdiButtonMessage* msg = (CGdiButtonMessage*)wParam;
+	if (msg->pThis == &m_button_menu)
+	{
+		TRACE(_T("menu button clicked, menu caption = %s\n"), msg->text);
+	}
+
+	return 0;
+}
 
 HBRUSH CTestGdiButtonDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
@@ -665,4 +683,14 @@ void CTestGdiButtonDlg::OnMouseMove(UINT nFlags, CPoint point)
 	}
 
 	CDialogEx::OnMouseMove(nFlags, point);
+}
+
+void CTestGdiButtonDlg::OnBnClickedButtonMenu()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+void CTestGdiButtonDlg::OnBnClickedButtonMfcMenu()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }

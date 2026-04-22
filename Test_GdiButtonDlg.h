@@ -39,6 +39,7 @@ public:
 	void				release_back_images();
 
 	LRESULT				on_message_CSCSliderCtrl(WPARAM wParam, LPARAM lParam);
+	LRESULT				on_message_CGdiButton(WPARAM wParam, LPARAM lParam);
 
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
@@ -114,4 +115,8 @@ public:
 	CGdiButton m_button_color_wheel;
 	CStatic m_static0;
 	CGdiButton m_button_capture;
+	CGdiButton m_button_menu;
+	CMFCMenuButton m_button_menu_mfc;
+	afx_msg void OnBnClickedButtonMenu();
+	afx_msg void OnBnClickedButtonMfcMenu();
 };
