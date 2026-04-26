@@ -313,7 +313,7 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_refresh.copy_properties(m_button_pip_off);
 	m_button_refresh.copy_properties(m_button_switch);
 
-
+	
 	CSCGdiplusBitmap img_wheel;
 	img_wheel.create_rgb_color_wheel();
 	m_button_color_wheel.add_image(&img_wheel);// , & img_wheel, & img_wheel, & img_wheel);
@@ -437,6 +437,10 @@ void CTestGdiButtonDlg::load_back_images()
 			//	image->resize(0.5f, 0.5f);
 			m_combo_back_image.AddString(get_part(img, fn_name));
 			m_img_back.push_back(image);
+		}
+		else
+		{
+			delete image;
 		}
 	}
 
