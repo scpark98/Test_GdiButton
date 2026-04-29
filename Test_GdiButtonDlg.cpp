@@ -260,6 +260,7 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_ok.set_round(8, Gdiplus::Color::Gray);
 	//m_button_ok.set_transparent(true, m_cr_back);
 	//m_button_ok.draw_back_shadow(true);// , 2.0f, 3.1f);
+	m_button_ok.set_blink();
 
 	//m_button_cancel.add_image(IDB_LIGHT_BLUE_ROUND);
 	//m_button_cancel.set_draw_own_text();
@@ -312,7 +313,7 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 
 	m_button_refresh.copy_properties(m_button_pip_off);
 	m_button_refresh.copy_properties(m_button_switch);
-
+	m_button_refresh.set_blink();
 	
 	CSCGdiplusBitmap img_wheel;
 	img_wheel.create_rgb_color_wheel();
@@ -326,7 +327,7 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_capture.set_transparent(true);
 
 	m_button_menu.set_menu_items(_T("menu 0"), _T("menu 1"), _T("menu 2"));
-
+	m_button_menu.set_blink();
 
 	CRect r = m_img.get_transparent_rect();
 
