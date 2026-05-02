@@ -192,6 +192,7 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 
 	for (i = 0; i < 3; i++)
 	{
+		//m_check_align[i].set_text_color(Gdiplus::Color::Black);
 		m_check_align[i].set_transparent(true, m_cr_back);
 		m_radio_default[i].set_transparent(true, m_cr_back);
 		m_radio_image[i].set_transparent(true, m_cr_back);
@@ -237,11 +238,11 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_static_weight_param.set_back_color(Gdiplus::Color::White);
 	m_static_blur_param.set_back_color(Gdiplus::Color::White);
 	m_slider_shadow_weight.set_style(CSCSliderCtrl::style_thumb_round);
-	m_slider_shadow_weight.set_back_color(RGB(255, 255, 255));
+	m_slider_shadow_weight.set_back_color(gRGB(255, 255, 255));
 	m_slider_shadow_weight.SetRange(0, 100);
 
 	m_slider_shadow_blur.set_style(CSCSliderCtrl::style_thumb_round);
-	m_slider_shadow_blur.set_back_color(RGB(255, 255, 255));
+	m_slider_shadow_blur.set_back_color(gRGB(255, 255, 255));
 	m_slider_shadow_blur.SetRange(0, 100);
 
 	m_button_short.add_image(IDB_PNG_SLATE_GRAY_SHORT);
