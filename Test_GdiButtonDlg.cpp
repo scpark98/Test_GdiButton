@@ -213,15 +213,15 @@ BOOL CTestGdiButtonDlg::OnInitDialog()
 	m_button_shadow_left.set_back_color(Gdiplus::Color::White, false);
 	m_button_shadow_left.fit_to_image(false);
 	//m_button_shadow_left.draw_border(true, -1, 10);
-	m_button_shadow_left.draw_drop_shadow(true, 1.0f, 1.6f);
-	m_button_shadow_left.set_down_offset(1, 1);
+	m_button_shadow_left.draw_drop_shadow(true, 0.4f, 2.1f);
+	m_button_shadow_left.set_down_offset(-1, 1);
 	m_button_shadow_left.set_tooltip_text(_T("left\narrow"));
 
 	m_button_shadow_right.add_image(IDB_ARROW_RIGHT);
 	m_button_shadow_right.set_back_color(Gdiplus::Color::White, false);
 	m_button_shadow_right.fit_to_image(false);
 	//m_button_shadow_right.draw_hover_rect(true, -1, 10); 
-	m_button_shadow_right.draw_drop_shadow(true, 1.0f, 1.6f);
+	m_button_shadow_right.draw_drop_shadow(true, 0.4f, 2.1f);
 	m_button_shadow_right.set_down_offset(1, 1);
 	m_button_shadow_right.set_tooltip_text(_T("right"));
 

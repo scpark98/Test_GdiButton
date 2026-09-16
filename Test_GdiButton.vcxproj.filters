@@ -72,6 +72,21 @@
     <ClInclude Include="..\..\Common\CEdit\SCEdit\SCEdit.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\CEdit\CSCStaticEdit\SCStaticEdit.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\CDialog\CSCColorPicker\SCColorPicker.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\CDialog\CSCColorPicker\SCDropperDlg.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\data_structure\SCParagraph\SCParagraph.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\CToolTipCtrl\CSCToolTipCtrl\SCToolTipCtrl.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Test_GdiButton.cpp">
@@ -111,6 +126,21 @@
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Common\CEdit\SCEdit\SCEdit.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\CEdit\CSCStaticEdit\SCStaticEdit.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\CDialog\CSCColorPicker\SCColorPicker.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\CDialog\CSCColorPicker\SCDropperDlg.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\data_structure\SCParagraph\SCParagraph.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\CToolTipCtrl\CSCToolTipCtrl\SCToolTipCtrl.cpp">
       <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
